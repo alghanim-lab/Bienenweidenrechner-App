@@ -34,7 +34,7 @@ export default  styles = StyleSheet.create({
       // borderWidth : 3,
       // paddingLeft : 20,
       // paddingRight : 20,
-      paddingHorizontal: 10, // +
+       paddingHorizontal: 10, // +
 
     },
     field: {
