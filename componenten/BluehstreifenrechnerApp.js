@@ -25,6 +25,8 @@ const BluehstreifenrechnerApp = () => {
   const [zeigeNeueDialog, setZeigeNeueDialog] = useState(false);
   
   const [pflanzenarten, setPfalnzenarten] = useState(data);
+
+  const [index,setIndex]= useState(index)
    
 
 // Pflanzenarten beim Start der App Laden
@@ -47,14 +49,23 @@ const BluehstreifenrechnerApp = () => {
 
    }
 
+   function entfernePflanzeVonListe () {
+  
+      const updateList = pflanzenarten.filter((pflanze) => pflanze.name !== ausgewähltePflanzenart );
+      setPfalnzenarten(updateList);
+      speicherePflanzenarten(updateList); 
+      ;
+   
+  }
+
    function speicherePflanzenarten (neueListe){
     //speicherun der Pflanzenarten in AsyncStorage
-    AsyncStorage.setItem('Pflanzenarten', JSON.stringify(neueListe))
+    AsyncStorage.setItem('pflanzenarten', JSON.stringify(neueListe))
 
    }
 
    async function loadPflanzenarten () {
-    let pflanzenartenFromDB = await AsyncStorage.getItem('Pflanzenarten');
+    let pflanzenartenFromDB = await AsyncStorage.getItem('pflanzenarten');
 
     if (pflanzenartenFromDB !== null) {
 
@@ -125,7 +136,7 @@ const BluehstreifenrechnerApp = () => {
         
 
         <View style={styles.form}>
-          <View style={styles.field}>
+          {/* <View style={styles.field}>
           <Pressable
               style= {styles.addIcon}
               onPress={()=> setZeigeNeueDialog(true)}> 
@@ -135,7 +146,39 @@ const BluehstreifenrechnerApp = () => {
               visible={zeigeNeueDialog}
               onCancel={()=>setZeigeNeueDialog(false)}
               onSave = {neuePlanzenartHinzufuegen}/>
+
+            <Pressable
+              style= {styles.deleteIcon}
+              onPress={() => alert ('delete')} > 
+                <MaterialIcons name="delete" size={40} color="#483d8b"/>
+              </Pressable>
+          </View> */}
+
+
+
+          <View style={[{ flexDirection: 'row' }, styles.field]}>
+            <View >
+                <Pressable
+                style= {styles.addIcon}
+                onPress={()=> setZeigeNeueDialog(true)}> 
+                <MaterialIcons name="add-circle" size={40} color="#483d8b"/>
+                </Pressable>
+                <NeuePflanzenart 
+                visible={zeigeNeueDialog}
+                onCancel={()=>setZeigeNeueDialog(false)}
+                onSave = {neuePlanzenartHinzufuegen}/>
+              </View>
+
+          <View>
+            <Pressable
+            style= {styles.deleteIcon}
+            onPress={ () => entfernePflanzeVonListe()}> 
+            <MaterialIcons name="delete" size={40} color="#483d8b"/>
+            </Pressable>        
           </View>
+                  
+         </View>
+
           <View style={styles.field}>
             <Text style={styles.label}>Aussaatfläche (in Quadratmetern):</Text>
             <TextInput
@@ -152,7 +195,10 @@ const BluehstreifenrechnerApp = () => {
             <Picker
               style={styles.picker}
               selectedValue={ausgewähltePflanzenart}
-              onValueChange={(value) => setAusgewähltePflanzenart(value)}
+              onValueChange={(value, index) => {
+                setAusgewähltePflanzenart(value)
+                setIndex(index);  // der Index wird benötigt um den entsprechenden Element beim Entfernen Funktion zu erhalten
+              }}
               required
             >
               <Picker.Item label="Bitte wählen" value="" />

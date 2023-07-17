@@ -135,7 +135,7 @@ const styles = StyleSheet.create ({
       },
       back : {
         position: 'absolute', //absolute //relativ
-         top: 60,
+         top: 10,
          left: 30,
         //  borderWidth : 1,
          padding : 10,

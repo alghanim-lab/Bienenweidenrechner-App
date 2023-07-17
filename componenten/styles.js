@@ -28,6 +28,16 @@ export default  styles = StyleSheet.create({
       // borderColor: `#483d8b`, //darkslateblue
        //backgroundColor: `#483d8b`, //darkslateblue
     },
+    deleteIcon : {
+      position: 'relativ', //absolute //relativ
+      //  top: 38 ,
+       left: -10,
+       top : 0, 
+      //  borderWidth : 1,
+      //  padding : 10,
+      //  marginTop: 10,
+       borderRadius: 10,
+    },
     form: {
       marginTop : 50,
       marginBottom: 20,
@@ -39,7 +49,7 @@ export default  styles = StyleSheet.create({
     },
     field: {
       marginBottom: 20,
-      // borderWidth : 3,
+       borderWidth : 1,
 
     },
     label: {
@@ -112,7 +122,6 @@ export default  styles = StyleSheet.create({
       color: '#FFF',
       fontSize: 18,
       textAlign: 'center',
-    },
-  
+    }
     
   });
