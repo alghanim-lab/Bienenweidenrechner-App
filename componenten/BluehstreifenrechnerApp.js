@@ -1,8 +1,9 @@
 import React, { useState , useEffect} from 'react';
-import { View, Text, TextInput, Button,Pressable ,ScrollView, KeyboardAvoidingView } from 'react-native';
+import { Alert, Text, TextInput, View,Pressable ,ScrollView, KeyboardAvoidingView } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import styles from './styles';
 import { MaterialIcons } from '@expo/vector-icons'; 
+// import * as SQLite from 'expo-sqlite';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NeuePflanzenart from './NeuePflanzenart';
 
@@ -24,7 +25,7 @@ const BluehstreifenrechnerApp = () => {
   const [ergebnis, setErgebnis] = useState(null);
   const [zeigeNeueDialog, setZeigeNeueDialog] = useState(false);
   
-  const [pflanzenarten, setPfalnzenarten] = useState(data);
+  const [pflanzenarten, setPfalnzenarten] = useState([data]);
 
   const [index,setIndex]= useState(index)
    
@@ -56,6 +57,16 @@ const BluehstreifenrechnerApp = () => {
       speicherePflanzenarten(updateList); 
       ;
    
+  }
+
+  function alertDeletePflanzenart() {
+    Alert.alert(
+      'Pflanze löschen',
+      'soll die Pflanzenart wirkloch gelöscht werden?',
+      [{text:'Abbrechen', style: 'cancel'},
+      {text: 'Bestätigen', style: 'destructive', onPress:entfernePflanzeVonListe}
+    ]
+    );
   }
 
    function speicherePflanzenarten (neueListe){
@@ -172,7 +183,7 @@ const BluehstreifenrechnerApp = () => {
           <View>
             <Pressable
             style= {styles.deleteIcon}
-            onPress={ () => entfernePflanzeVonListe()}> 
+            onPress={ () => alertDeletePflanzenart()}> 
             <MaterialIcons name="delete" size={40} color="#483d8b"/>
             </Pressable>        
           </View>
