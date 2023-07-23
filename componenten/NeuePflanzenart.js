@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Modal,Text, Pressable, StyleSheet, TextInput, KeyboardAvoidingView, Platform } from "react-native"
+import { Modal,Text, Pressable, StyleSheet, TextInput, KeyboardAvoidingView, Platform ,Dimensions} from "react-native"
 import { MaterialIcons } from '@expo/vector-icons';
 export default function NeuePflanzenart (props) {
     const visible =props.visible;
@@ -79,14 +79,11 @@ animationType='slide'>
         style={styles.input}
         required/>
 
-        {/* <Text style={{borderWidth:3, padding:30, marginBottom: 10}}>
-        Neue Pflanzenart eingeben
-        </Text> */}
 
         <Pressable
             style= {styles.back}
             onPress={cancelEditing}> 
-            <MaterialIcons name="keyboard-backspace" size={36} color="#483d8b" />
+            <MaterialIcons name="keyboard-backspace" size={Dimensions.get("window").width * 0.1} color="#483d8b" />
         </Pressable>
 
         <Pressable 
@@ -109,6 +106,8 @@ const styles = StyleSheet.create ({
         // backgroundColor: '#fff',
     },
     input:{
+        flex : 0.1,
+        top: 10,
         borderWidth: 1,
         borderColor: `#483d8b`, //'#darkslateblue'
         borderRadius: 5,
@@ -119,9 +118,11 @@ const styles = StyleSheet.create ({
 
     },
     speichern: {
-        position: 'relativ', //absolute //relativ
-        //  top: 410,
-        //  borderWidth : 1,
+        marginBottom : 20,
+        position: 'absolute', //absolute //relativ
+        top :  Dimensions.get('window').width > "700"
+        ?  Dimensions.get('window').width * 1.20
+        :  Dimensions.get('window').width * 2 ,        //  borderWidth : 1,
          padding : 10,
         //  marginTop: 10,
          borderRadius: 10,
@@ -130,12 +131,16 @@ const styles = StyleSheet.create ({
       },
       speichernText: {
         color: '#FFF',
-        fontSize: 18,
+        fontSize:  Dimensions.get('window').width > "700"
+        ?  50
+        :  16,
         textAlign: 'center',
       },
       back : {
         position: 'absolute', //absolute //relativ
-         top: 10,
+         top: Dimensions.get('window').width > "700"
+         ?  Dimensions.get('window').width *0.05
+         :  Dimensions.get('window').width * 0.1 , 
          left: 30,
         //  borderWidth : 1,
          padding : 10,

@@ -22,13 +22,13 @@ export default function App() {
 }
 
 //benötigte Styles definieren --> Aussehen und Layout
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     backgroundColor: '#fff',
+//   },
+// });
 
 const style1= {fontSize:50, fontStyle :'italic'};
