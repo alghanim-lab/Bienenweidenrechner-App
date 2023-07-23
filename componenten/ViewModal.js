@@ -17,49 +17,6 @@ export default function ViewModal(props) {
     // }, [props.ergebnis])
 
 
- 
-//  const check =   (<View style={styles.modalContent}>
-//     <ScrollView contentContainerStyle={styles.scrollViewContent}>
-//       <Text style={styles.resultTitle}>Ergebnis:</Text>
-//       <View style={styles.resultContainer}>
-//         <View style={styles.resultItem}>
-//           <Text style={styles.resultLabel}>Benötigte Saatgutmenge (Gramm):</Text>
-         
-//         </View>
-//         <View style={styles.resultItem}>
-//           <Text style={styles.resultLabel}>Aussaatzeitpunkt:</Text>
-//           <Text style={styles.resultValue}>{ergebnis.saatzeitpunkt}</Text>
-//         </View>
-//         <View style={styles.resultItem}>
-//           <Text style={styles.resultLabel}>Fläche bietet Nahrung für Bienen pro Tag:</Text>
-//           <Text style={styles.resultValue}>{ergebnis.gesamtAnzahlBienenProQm}</Text>
-//         </View>
-//         <View style={styles.resultItem}>
-//           <Text style={styles.resultLabel}>Vegetationszeit:</Text>
-//           <Text style={styles.resultValue}>{ergebnis.bluetezeit}</Text>
-//         </View>
-//         <View style={styles.resultItem}>
-//           <Text style={styles.resultLabel}>Gesamter Zeitraum (Monate):</Text>
-//           <Text style={styles.resultValue}>{ergebnis.gesamterZeitraum}</Text>
-//         </View>
-//         <View style={styles.resultItem}>
-//           <Text style={styles.resultLabel}>Nahrung für Bienen über die Vegetationszeit:</Text>
-//           <Text style={styles.resultValue}>{ergebnis.nahrungFürBienen}</Text>
-//         </View>
-//         <View style={styles.resultItem}>
-//           <Text style={styles.resultLabel}>CO2-Bindung (in KG):</Text>
-//           <Text style={styles.resultValue}>{ergebnis.co2Bindung}</Text>
-//         </View>
-//         <View style={styles.resultItem}>
-//           <Text style={styles.resultLabel}>Positiver Beitrag (CO2 übrig in Millionen Tonnen):</Text>
-//           <Text style={styles.resultValue}>{ergebnis.positiverBeitrag}</Text>
-//         </View>
-//       </View>
-//     </ScrollView>
-//   </View>
-   
-//  )
-
 return (
 
 <Modal
