@@ -30,7 +30,7 @@ onRequestClose={onCancel} // required on Android
 
  <View style={styles.modalContent}>
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
-      <Text style={styles.resultTitle}>Ergebnis:</Text>
+      {/* <Text style={styles.resultTitle}>Ergebnis:</Text> */}
       <View style={styles.resultContainer}>
         <View style={styles.resultItem}>
           <Text style={styles.resultLabel}>Benötigte Saatgutmenge (Gramm):</Text>
@@ -72,7 +72,7 @@ onRequestClose={onCancel} // required on Android
     <Pressable
             style= {styles.close}
             onPress={onCancel}> 
-            <MaterialIcons name="close" size={36} color="#483d8b" />
+            <MaterialIcons name="close" size={Dimensions.get("window").width * 0.1} color="#483d8b" />
      </Pressable>  
      
      </KeyboardAvoidingView>
@@ -109,10 +109,11 @@ const styles = StyleSheet.create({
 
       },
       resultItem: {
-        flex : 1,
+        flex : 0.1,
+        top: 120,
         borderWidth: 3,
         flexDirection: 'column',
-        justifyContent: 'space-between',
+        // justifyContent: 'space-between',
         alignItems: 'baseline',
         marginVertical: 5,
         flexWrap:'wrap',
@@ -120,12 +121,12 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').height * 0.2 // 20% of screen's height
       },
       resultLabel: {
-        fontSize: 16,
+        fontSize: Dimensions.get('window').width * 0.0328,
         fontWeight: 'bold',
         flex: 1,
       },
       resultValue: {
-        fontSize: 16,
+        fontSize:  Dimensions.get('window').width * 0.037,
         flex: 1,
         textAlign: 'right',
       },
@@ -135,4 +136,3 @@ const styles = StyleSheet.create({
         right: 20,
       },
 });
-
