@@ -28,7 +28,6 @@ export default  styles = StyleSheet.create({
   },
   addIcon: {
     position: 'absolute', //absolute //relativ
-    //  top: 38 ,
     //  left: 260,
     //  borderWidth : 1,
     //  padding : 10,
