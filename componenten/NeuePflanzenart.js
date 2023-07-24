@@ -83,7 +83,7 @@ animationType='slide'>
         <Pressable
             style= {styles.back}
             onPress={cancelEditing}> 
-            <MaterialIcons name="keyboard-backspace" size={Dimensions.get("window").width * 0.1} color="#483d8b" />
+            <MaterialIcons name="keyboard-backspace" size={Dimensions.get("window").width * 0.1} color="#228b22" />
         </Pressable>
 
         <Pressable 
@@ -127,7 +127,7 @@ const styles = StyleSheet.create ({
         //  marginTop: 10,
          borderRadius: 10,
          borderColor: `#483d8b`, //darkslateblue
-         backgroundColor: `#483d8b`, //darkslateblue
+         backgroundColor: `#228b22`, //darkslateblue
       },
       speichernText: {
         color: '#FFF',

@@ -165,7 +165,7 @@ const BluehstreifenrechnerApp = () => {
                 <MaterialIcons
                   name="add-circle"
                   size={Dimensions.get("window").width * 0.1}
-                  color="#483d8b"
+                  color="#228b22"
                 />
               </Pressable>
               <NeuePflanzenart
@@ -183,7 +183,7 @@ const BluehstreifenrechnerApp = () => {
                   <MaterialIcons
                     name="delete"
                     size={Dimensions.get("window").width * 0.1}
-                    color="#483d8b"
+                    color="#228b22"
                   />
                 </Pressable>
               </View>

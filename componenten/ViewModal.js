@@ -72,7 +72,7 @@ onRequestClose={onCancel} // required on Android
     <Pressable
             style= {styles.close}
             onPress={onCancel}> 
-            <MaterialIcons name="close" size={Dimensions.get("window").width * 0.1} color="#483d8b" />
+            <MaterialIcons name="close" size={Dimensions.get("window").width * 0.1} color="#228b22" />
      </Pressable>  
      
      </KeyboardAvoidingView>

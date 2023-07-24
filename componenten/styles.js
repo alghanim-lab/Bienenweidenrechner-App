@@ -120,7 +120,7 @@ export default  styles = StyleSheet.create({
     //  marginTop: 10,
     borderRadius: 10,
     borderColor: `#483d8b`, //darkslateblue
-    backgroundColor: `#483d8b`, //darkslateblue
+    backgroundColor: `#228b22`, //darkslateblue
   },
   berechnenText: {
     color: '#FFF',
