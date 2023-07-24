@@ -95,11 +95,11 @@ const BluehstreifenrechnerApp = () => {
 
     if (pflanzenartenFromDB !== null) {
 
-      console.log('Pflanzen form Db ' + pflanzenartenFromDB.length);
+      // console.log('Pflanzen form Db ' + pflanzenartenFromDB.length);
 
       // die String wieder in Array Form umwandeln
       pflanzenartenFromDB = JSON.parse(pflanzenartenFromDB)
-      console.log('Pflanzen form Db ' + pflanzenartenFromDB.length);
+      // console.log('Pflanzen form Db ' + pflanzenartenFromDB.length);
 
       // TODO: Planzenarten im State ablegen 
       setPfalnzenarten(pflanzenartenFromDB)
