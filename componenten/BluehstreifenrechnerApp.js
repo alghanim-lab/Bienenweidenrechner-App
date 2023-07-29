@@ -105,7 +105,9 @@ const BluehstreifenrechnerApp = () => {
       setPfalnzenarten(pflanzenartenFromDB)
 
     }
-
+    else {
+      setPfalnzenarten(data)
+    }
   }
 
 
