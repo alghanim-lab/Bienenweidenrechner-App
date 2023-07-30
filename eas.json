@@ -4,22 +4,13 @@
   },
   "build": {
     "test": {
-      "development": {
-        "developmentClient": true,
-        "distribution": "internal"
+      "android": {
+        "gradleCommand": ":app:assembleRelease :app:assembleAndroidTest -DtestBuildType=release",
+        "withoutCredentials": true
       },
-      "bluehstreifenSimulatoriOS": {
-        "distribution": "internal",
-
-        "ios": {
-          "simulator": true
-        },
-
-        "production": {}
+      "ios": {
+        "simulator": true
       }
-    },
-    "submit": {
-      "production": {}
     }
   }
 }
