@@ -205,7 +205,7 @@ const BluehstreifenrechnerApp = () => {
           </View>
 
           <View style={[styles.field]}>
-            <Text style={[styles.label, { flex: 0.3 }]}>
+            <Text style={[styles.label, { flex: 0.3 }]} testID="valueLabel">
               Gewünschte Pflanzenart:
             </Text>
             <Picker
@@ -268,7 +268,7 @@ const BluehstreifenrechnerApp = () => {
               />
               <Text style={styles.berechnenText}>Berechnen</Text>
             </Pressable>
-            <Text style={styles.ergebnisLabel} testID="ergebnisLabel">Ergebnis: {ergebnis ? ergebnis.benötigteMenge : ''}</Text>
+            {/* <Text style={styles.ergebnisLabel} testID="ergebnisLabel">Ergebnis: {ergebnis ? ergebnis.benötigteMenge : ''}</Text> */}
 
             {/* <Button title="Berechnen" onPress={handleSubmit} 
            /> */}
