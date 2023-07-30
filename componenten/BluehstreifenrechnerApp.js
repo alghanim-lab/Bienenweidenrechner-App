@@ -200,6 +200,7 @@ const BluehstreifenrechnerApp = () => {
               value={aussaatFläche}
               onChangeText={(value) => setAussaatFläche(value)}
               required
+              testID="aussaatFlächeInput" // TestID für das Aussaatfläche TextInput-Feld
             />
           </View>
 
@@ -221,6 +222,7 @@ const BluehstreifenrechnerApp = () => {
                 setIndex(index); // der Index wird benötigt um den entsprechenden Element beim Entfernen Funktion zu erhalten
               }}
               required
+              testID="pflanzenartPicker" // TestID für den Pflanzenart-Picker
             >
               <Picker.Item label="Bitte wählen" value="" />
               {pflanzenarten.map((pflanze, index) => (
@@ -243,6 +245,8 @@ const BluehstreifenrechnerApp = () => {
               value={co2InDerStadt}
               onChangeText={(value) => setCo2InDerStadt(value)}
               required
+              testID="co2Input" // TestID für das CO2-Emissionen TextInput-Feld
+
             />
           </View>
 
@@ -253,8 +257,7 @@ const BluehstreifenrechnerApp = () => {
                 handleSubmit();
               }} //hadlesubmit
               style={styles.berechnen}
-              testID="berechnenButton"
-              accessibilityLabel="Berechnen Button"
+              testID="berechnenButton" // TestID für den 'Berechnen'-Button
             
             >
               <ViewModal
@@ -265,6 +268,8 @@ const BluehstreifenrechnerApp = () => {
               />
               <Text style={styles.berechnenText}>Berechnen</Text>
             </Pressable>
+            <Text style={styles.ergebnisLabel} testID="ergebnisLabel">Ergebnis: {ergebnis ? ergebnis.benötigteMenge : ''}</Text>
+
             {/* <Button title="Berechnen" onPress={handleSubmit} 
            /> */}
           </View>
