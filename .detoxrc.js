@@ -9,19 +9,26 @@ module.exports = {
       setupTimeout: 120000
     }
   },
-  apps: {
-    'ios.debug': {
-      type: 'ios.app',
-      binaryPath: 'ios/build/Build/Products/Debug-iphonesimulator/bluehstreifeniOS.app',
-      // build: 'xcodebuild -workspace ios/bluehstreifeniOS.xcworkspace -scheme bluehstreifeniOS -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build'
-      build: 'xcodebuild -project ios/bluehstreifeniOS.xcodeproj -scheme bluehstreifeniOS -sdk -configuration Debug iphonesimulator -derivedDataPath ios/build'
-
+  artifacts: {
+    plugins: {
+      log: process.env.CI ? 'failing' : undefined,
+      screenshot: 'failing',
     },
+  },
+  apps: {
+    // 'ios.debug': {
+    //   type: 'ios.app',
+    //   binaryPath: 'ios/build/Build/Products/Debug-iphonesimulator/bluehstreifeniOS.app',
+    //   build: 'xcodebuild -workspace ios/bluehstreifeniOS.xcworkspace -scheme bluehstreifeniOS -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build'
+    //   // build: 'xcodebuild -project ios/bluehstreifeniOS.xcodeproj -scheme bluehstreifeniOS -sdk -configuration Debug iphonesimulator -derivedDataPath ios/build'
+
+    // },
     'ios.release': {
       type: 'ios.app',
+      build: 'xcodebuild -workspace ios/bluehstreifeniOS.xcworkspace -scheme bluehstreifeniOS -configuration Release -sdk iphonesimulator -arch x86_64 -derivedDataPath ios/build',
       binaryPath: 'ios/build/Build/Products/Release-iphonesimulator/bluehstreifeniOS.app',
       // build: 'xcodebuild -workspace ios/bluehstreifeniOS.xcworkspace -scheme bluehstreifeniOS -configuration Release -sdk iphonesimulator -derivedDataPath ios/build'
-      build: 'xcodebuild -project ios/bluehstreifeniOS.xcodeproj -scheme bluehstreifeniOS -sdk -configuration Release iphonesimulator -derivedDataPath ios/build'
+      // build: 'xcodebuild -project ios/bluehstreifeniOS.xcodeproj -scheme bluehstreifeniOS -sdk -configuration Release iphonesimulator -derivedDataPath ios/build'
 
     },
     'android.debug': {
@@ -45,12 +52,12 @@ module.exports = {
         type: 'iPhone 14 Pro Max'
       }
     },
-    attached: {
-      type: 'android.attached',
-      device: {
-        adbName: '.*'
-      }
-    },
+    // attached: {
+    //   type: 'android.attached',
+    //   device: {
+    //     adbName: '.*'
+    //   }
+    // },
     emulator: {
       type: 'android.emulator',
       device: {
@@ -59,11 +66,11 @@ module.exports = {
     }
   },
   configurations: {
-    'ios.sim.debug': {
-      device: 'simulator',
-      app: 'ios.debug'
-    },
-    'ios.sim.release': {
+    // 'ios.sim.debug': {
+    //   device: 'simulator',
+    //   app: 'ios.debug'
+    // },
+    'ios.release': {
       device: 'simulator',
       app: 'ios.release'
     },

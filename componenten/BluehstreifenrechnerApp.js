@@ -35,7 +35,7 @@ const BluehstreifenrechnerApp = () => {
 
   const [zeigeView, setZeigeView] = useState(false);
 
-  const [pflanzenarten, setPfalnzenarten] = useState([data]);
+  const [pflanzenarten, setPfalnzenarten] = useState([]);
 
   const [index, setIndex] = useState(index)
 
@@ -92,9 +92,9 @@ const BluehstreifenrechnerApp = () => {
 
 
     let pflanzenartenFromDB = await AsyncStorage.getItem('pflanzenarten');
-
-    if (pflanzenartenFromDB !== null) {
-
+    
+    if (pflanzenartenFromDB !== null && pflanzenartenFromDB!=='[]' ) {
+      
       // console.log('Pflanzen form Db ' + pflanzenartenFromDB.length);
 
       // die String wieder in Array Form umwandeln
@@ -106,7 +106,9 @@ const BluehstreifenrechnerApp = () => {
 
     }
     else {
-      setPfalnzenarten(data)
+      
+       setPfalnzenarten(data);
+       speicherePflanzenarten(data);
     }
   }
 
@@ -117,7 +119,6 @@ const BluehstreifenrechnerApp = () => {
     );
 
     if (ausgewähltePflanze) {
-
       const benötigteMenge = parseFloat(aussaatFläche) * ausgewähltePflanze.saatgutProQuadratmeter;
       const gesamtAnzahlBienenProQm = parseFloat(aussaatFläche) * 32.62; // Bienen pro Quadratmeter
       const vegetationszeitInMonaten = ausgewähltePflanze.vegetationszeit / 30; // Umwandlung der Vegetationszeit in Monate
@@ -252,6 +253,9 @@ const BluehstreifenrechnerApp = () => {
                 handleSubmit();
               }} //hadlesubmit
               style={styles.berechnen}
+              testID="berechnenButton"
+              accessibilityLabel="Berechnen Button"
+            
             >
               <ViewModal
                 visible={zeigeView}
