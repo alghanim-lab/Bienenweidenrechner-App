@@ -177,6 +177,7 @@ const BluehstreifenrechnerApp = () => {
           <View style={[styles.field, { flexDirection: "row", flex: 0.2 }]}>
             <View>
               <Pressable
+                testID='neuePlanzenart'
                 style={styles.addIcon}
                 onPress={() => setZeigeNeueDialog(true)}
               >
@@ -187,6 +188,7 @@ const BluehstreifenrechnerApp = () => {
                 />
               </Pressable>
               <NeuePflanzenart
+                testID='neuePlanzenart'
                 visible={zeigeNeueDialog}
                 onCancel={() => setZeigeNeueDialog(false)}
                 onSave={neuePlanzenartHinzufuegen}
@@ -195,6 +197,7 @@ const BluehstreifenrechnerApp = () => {
 
               <View>
                 <Pressable
+                  testID='deleteButton'
                   style={styles.deleteIcon}
                   onPress={() => alertDeletePflanzenart()}
                 >
@@ -272,10 +275,11 @@ const BluehstreifenrechnerApp = () => {
                 handleSubmit();
               }} //hadlesubmit
               style={styles.berechnen}
-              testID="berechnenButton" // TestID für den 'Berechnen'-Button
+              testID="berechnenButton" // TestID für den 'Berechnen'-Buttond
             
             >
               <ViewModal
+               testID = "berechnenButton"
                 visible={zeigeView}
                 onCancel={() => setZeigeView(false)}
                 // ergebnis = {ergebnis}

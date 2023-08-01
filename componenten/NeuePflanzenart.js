@@ -5,6 +5,7 @@ export default function NeuePflanzenart (props) {
     const visible =props.visible;
     const onCancel=props.onCancel;
     const onSave = props.onSave;
+    const testID= props.testID
 
     const [pflanzenartName,setPflanzenartName] = useState('')
     const [saatMenge, setSaatMenge] = useState('')
@@ -50,12 +51,13 @@ export default function NeuePflanzenart (props) {
     // if (!visible) return null; mit dem Modal brauchen wir diese Zeile nicht mehr
     return ( 
 <Modal 
+testID={testID}
 visible={visible}
 onRequestClose={cancelEditing}
 animationType='slide'>
 
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style = {styles.container}>
-        <TextInput placeholder="Planzenartname"
+        <TextInput testID={`${testID}.pflanzenartname`} placeholder="Planzenartname"
         onChangeText={(value) => setPflanzenartName(value)} //{setPlanzenartName} ist ausreichend da es sich um einen Text handelt 
          style={styles.input}
          multiline= {true}
