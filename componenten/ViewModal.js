@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
       },
       close: {
         position: 'absolute',
-        top: 25,
+        top: Dimensions.get('window').width * 0.1,
         right: 20,
       },
 });

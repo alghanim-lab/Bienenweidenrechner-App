@@ -1,4 +1,4 @@
-const { device, element, by, expect } = require('detox');
+const { device, element, by, expect,waitFor } = require('detox');
 
 describe('BluehstreifenrechnerApp', () => {
 
@@ -16,7 +16,15 @@ describe('BluehstreifenrechnerApp', () => {
     await element(by.id('aussaatFlächeInput')).typeText('100');
 
     // Select a Pflanzenart
-    await element(by.id('pflanzenartPicker')).tap();
+    await waitFor(element(by.id('pflanzenartPicker')))                                                                                                               
+    .toBeVisible()                                                                                                                                        
+    .withTimeout(10000); 
+    await element(by.id('pflanzenartPicker')).setColumnToValue(0, 'Buchweizen');    
+
+    // await waitFor (element(by.text('Buchweizen'))).tap();
+    // console.log("test")
+    // await device.pauseTest();
+
 
 
     

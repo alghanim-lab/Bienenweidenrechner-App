@@ -28,7 +28,7 @@ const BluehstreifenrechnerApp = () => {
   const width = Dimensions.get('window').width;
 
   const [aussaatFläche, setAussaatFläche] = useState('0');
-  const [ausgewähltePflanzenart, setAusgewähltePflanzenart] = useState('');
+  const [ausgewähltePflanzenart, setAusgewähltePflanzenart] = useState(null);
   const [co2InDerStadt, setCo2InDerStadt] = useState('0');
   const [ergebnis, setErgebnis] = useState(null);
   const [zeigeNeueDialog, setZeigeNeueDialog] = useState(false);
@@ -46,6 +46,20 @@ const BluehstreifenrechnerApp = () => {
   }, []) // []---> einmalige Ausführeung 
 
 
+
+  function checkAusgewaehlterPfalnzenart (ausgewähltePflanzenart) {
+
+    // Beim ersten Laden der App muss ein Value für Detox Test gesetzt werden
+    if (ausgewähltePflanzenart== null) {
+      setAusgewähltePflanzenart ('Buchweizen')
+      return
+      
+    }
+    else { 
+      
+      return ausgewähltePflanzenart;
+    }
+  }
 
   function neuePlanzenartHinzufuegen(pflanze, saatgutqm, zeitpunkt, bluetZeit, vegatationZeit) {
 
@@ -90,11 +104,12 @@ const BluehstreifenrechnerApp = () => {
 
   async function loadPflanzenarten() {
 
+    
 
     let pflanzenartenFromDB = await AsyncStorage.getItem('pflanzenarten');
     
     if (pflanzenartenFromDB !== null && pflanzenartenFromDB!=='[]' ) {
-      
+
       // console.log('Pflanzen form Db ' + pflanzenartenFromDB.length);
 
       // die String wieder in Array Form umwandeln
@@ -205,10 +220,11 @@ const BluehstreifenrechnerApp = () => {
           </View>
 
           <View style={[styles.field]}>
-            <Text style={[styles.label, { flex: 0.3 }]} testID="valueLabel">
+            <Text style={[styles.label, { flex: 0.3 }]}>
               Gewünschte Pflanzenart:
             </Text>
             <Picker
+              testID= "pflanzenartPicker" // TestID für den Pflanzenart-Picker
               style={[
                 styles.picker,
                 { flex: 2 },
@@ -216,15 +232,14 @@ const BluehstreifenrechnerApp = () => {
                   ? { transform: [{ scaleX: 2 }, { scaleY: 2 }], top: 180 }
                   : { transform: [{ scaleX: 1.1 }, { scaleY: 1.1 }] },
               ]}
-              selectedValue={ausgewähltePflanzenart}
+              selectedValue= { checkAusgewaehlterPfalnzenart(ausgewähltePflanzenart)}
               onValueChange={(value, index) => {
                 setAusgewähltePflanzenart(value);
                 setIndex(index); // der Index wird benötigt um den entsprechenden Element beim Entfernen Funktion zu erhalten
               }}
               required
-              testID="pflanzenartPicker" // TestID für den Pflanzenart-Picker
             >
-              <Picker.Item label="Bitte wählen" value="" />
+              <Picker.Item label="Bitte wählen" value=""  />
               {pflanzenarten.map((pflanze, index) => (
                 <Picker.Item
                   key={index}

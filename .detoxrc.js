@@ -16,13 +16,16 @@ module.exports = {
     },
   },
   apps: {
-    // 'ios.debug': {
-    //   type: 'ios.app',
+    'ios.debug': {
+       type: 'ios.app',
+       type: 'ios.app',
+       build: 'xcodebuild -workspace ios/bluehstreifeniOS.xcworkspace -scheme bluehstreifeniOS -configuration Release -sdk iphonesimulator -arch x86_64 -derivedDataPath ios/build',
+       binaryPath: 'ios/build/Build/Products/Release-iphonesimulator/bluehstreifeniOS.app',
     //   binaryPath: 'ios/build/Build/Products/Debug-iphonesimulator/bluehstreifeniOS.app',
     //   build: 'xcodebuild -workspace ios/bluehstreifeniOS.xcworkspace -scheme bluehstreifeniOS -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build'
     //   // build: 'xcodebuild -project ios/bluehstreifeniOS.xcodeproj -scheme bluehstreifeniOS -sdk -configuration Debug iphonesimulator -derivedDataPath ios/build'
 
-    // },
+     },
     'ios.release': {
       type: 'ios.app',
       build: 'xcodebuild -workspace ios/bluehstreifeniOS.xcworkspace -scheme bluehstreifeniOS -configuration Release -sdk iphonesimulator -arch x86_64 -derivedDataPath ios/build',
@@ -66,10 +69,10 @@ module.exports = {
     }
   },
   configurations: {
-    // 'ios.sim.debug': {
-    //   device: 'simulator',
-    //   app: 'ios.debug'
-    // },
+    'ios.sim.debug': {
+      device: 'simulator',
+      app: 'ios.debug'
+    },
     'ios.release': {
       device: 'simulator',
       app: 'ios.release'
