@@ -135,14 +135,15 @@ const BluehstreifenrechnerApp = () => {
 
     if (ausgewähltePflanze) {
       const benötigteMenge = parseFloat(aussaatFläche) * ausgewähltePflanze.saatgutProQuadratmeter;
-      const gesamtAnzahlBienenProQm = parseFloat(aussaatFläche) * 32.62; // Bienen pro Quadratmeter
+      const gesamtAnzahlBienenProQm = (parseFloat(aussaatFläche) * 32.62).toFixed(); // Bienen pro Quadratmeter
       const vegetationszeitInMonaten = ausgewähltePflanze.vegetationszeit / 30; // Umwandlung der Vegetationszeit in Monate
-      const co2Bindung = parseFloat(aussaatFläche) / 10000 * 0.48 * 1000; // Co2 pro hektar umrechenen * Megagramm in Kg umrechnen
+      const co2Bindung = (parseFloat(aussaatFläche) / 10000 * 0.48 * 1000).toFixed(3); // Co2 pro hektar umrechenen * Megagramm in Kg umrechnen
       const gesamterZeitraum = vegetationszeitInMonaten.toFixed(1);
-      const nahrungFürBienen = gesamtAnzahlBienenProQm * parseFloat(aussaatFläche) * ausgewähltePflanze.vegetationszeit;
+      const nahrungFürBienen = (gesamtAnzahlBienenProQm * parseFloat(aussaatFläche) * ausgewähltePflanze.vegetationszeit).toFixed();
       const saatzeitpunkt = ausgewähltePflanze.saatzeitpunkt;
       const bluetezeit = ausgewähltePflanze.bluetezeit;
       const positiverBeitrag = parseFloat(co2InDerStadt) - (co2Bindung / 1000000000); // umrechnen in Millionen Tonnen 
+      
       return { benötigteMenge, gesamtAnzahlBienenProQm, gesamterZeitraum, nahrungFürBienen, co2Bindung, saatzeitpunkt, bluetezeit, positiverBeitrag };
     }
 
