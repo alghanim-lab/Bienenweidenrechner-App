@@ -108,13 +108,27 @@ export default  styles = StyleSheet.create({
 
   // },
   buttonContainer: {
+    flex:.2,
     marginTop: 10,
     // size : Dimensions.get('window').width * 0.04
     // borderWidth: 3,
   },
   berechnen: {
-    position: 'relativ', //absolute //relativ
-    //  top: 410,
+    position: 'absolute', //absolute //relativ
+    top:0,
+    right :20,
+    // flexDirection: 'row',
+    //  borderWidth : 1,
+    padding: 10,
+    //  marginTop: 10,
+    borderRadius: 10,
+    borderColor: `#483d8b`, //darkslateblue
+    backgroundColor: `#228b22`, //darkslateblue
+  },
+  speichern: {
+    position: 'absolute', //absolute //relativ
+    top: 0,
+    // flexDirection: 'row',
     //  borderWidth : 1,
     padding: 10,
     //  marginTop: 10,

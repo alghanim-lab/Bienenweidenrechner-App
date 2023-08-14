@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, Text, TextInput, View, Pressable, ScrollView, KeyboardAvoidingView, Dimensions, StyleSheet } from 'react-native';
+import { Alert, Text, TextInput, View, Pressable, ScrollView, KeyboardAvoidingView, Dimensions, StyleSheet, Animated } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import styles from './styles';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -7,6 +7,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NeuePflanzenart from './NeuePflanzenart';
 import ViewModal from './ViewModal';
+import MultipleViewMap from './MultipleViewMap';
 
 
 
@@ -30,7 +31,9 @@ const BluehstreifenrechnerApp = () => {
   const [aussaatFläche, setAussaatFläche] = useState('0');
   const [ausgewähltePflanzenart, setAusgewähltePflanzenart] = useState(null);
   const [co2InDerStadt, setCo2InDerStadt] = useState('0');
-  const [ergebnis, setErgebnis] = useState(null);
+  // const [ergebnis, setErgebnis] = useState(null);
+  const [ergebnis, setErgebnis] = useState([]);
+
   const [zeigeNeueDialog, setZeigeNeueDialog] = useState(false);
 
   const [zeigeView, setZeigeView] = useState(false);
@@ -39,13 +42,21 @@ const BluehstreifenrechnerApp = () => {
 
   const [index, setIndex] = useState(index)
 
+  
+  const [gemeinsameDaten,setGemensameDaten] = useState({});
+
+  const [isFlag,setIsFlag] = useState(false)  // zur Kontrolle der Map methode benötigt 
+
+const setErgebnisNull = ()=> {
+  setErgebnis([])  // setze die Ergebnise Liste auf Null , wenn der User in Laufzeit der App erneut eine neue Liste aussuchen möchte
+}
 
   // Pflanzenarten beim Start der App Laden
   useEffect(() => {
     loadPflanzenarten();
   }, []) // []---> einmalige Ausführeung 
 
-
+ 
 
   function checkAusgewaehlterPfalnzenart (ausgewähltePflanzenart) {
 
@@ -134,20 +145,23 @@ const BluehstreifenrechnerApp = () => {
     );
 
     if (ausgewähltePflanze) {
+      const pflanzeName = ausgewähltePflanze.name;
       const benötigteMenge = parseFloat(aussaatFläche) * ausgewähltePflanze.saatgutProQuadratmeter;
-      const gesamtAnzahlBienenProQm = (parseFloat(aussaatFläche) * 32.62).toFixed(); // Bienen pro Quadratmeter
+      const bienenernaehrungProQm = (parseFloat(aussaatFläche) * 32.62).toFixed(); // Bienen pro Quadratmeter
       const vegetationszeitInMonaten = ausgewähltePflanze.vegetationszeit / 30; // Umwandlung der Vegetationszeit in Monate
       const co2Bindung = (parseFloat(aussaatFläche) / 10000 * 0.48 * 1000).toFixed(3); // Co2 pro hektar umrechenen * Megagramm in Kg umrechnen
       const gesamterZeitraum = vegetationszeitInMonaten.toFixed(1);
-      const nahrungFürBienen = (gesamtAnzahlBienenProQm * parseFloat(aussaatFläche) * ausgewähltePflanze.vegetationszeit).toFixed();
+      const gesamtnahrungBienen = (bienenernaehrungProQm * parseFloat(aussaatFläche) * ausgewähltePflanze.vegetationszeit).toFixed();
       const saatzeitpunkt = ausgewähltePflanze.saatzeitpunkt;
       const bluetezeit = ausgewähltePflanze.bluetezeit;
-      const positiverBeitrag = parseFloat(co2InDerStadt) - (co2Bindung / 1000000000); // umrechnen in Millionen Tonnen 
+      const positiverCo2Beitrag = parseFloat(co2InDerStadt) - (co2Bindung / 1000000000); // umrechnen in Millionen Tonnen 
       
-      return { benötigteMenge, gesamtAnzahlBienenProQm, gesamterZeitraum, nahrungFürBienen, co2Bindung, saatzeitpunkt, bluetezeit, positiverBeitrag };
+      return { pflanzeName,benötigteMenge, gesamtAnzahlBienenProQm: bienenernaehrungProQm, gesamterZeitraum, nahrungFürBienen: gesamtnahrungBienen, co2Bindung, saatzeitpunkt, bluetezeit, positiverBeitrag: positiverCo2Beitrag };
     }
 
     return {
+  
+      pflanzeName:'', 
       benötigteMenge: 0,
       gesamtAnzahlBienenProQm: 0,
       gesamterZeitraum: 0,
@@ -160,10 +174,39 @@ const BluehstreifenrechnerApp = () => {
   };
 
   const handleSubmit = () => {
-    const ergebnis = berechneBienenweide();
-    setErgebnis(ergebnis);
+    const ergebnisValue = berechneBienenweide();
+    // setErgebnis(ergebnis)
+      const aktulisierteErgebnisse = [...ergebnis,ergebnisValue]; 
+     
+      setErgebnis(aktulisierteErgebnisse);
+
+      
+  
+    
+
   };
 
+  const ergeebnisseZusammenfassen = (ergebnisse) => {
+
+    if (ergebnis.length> 0) {
+      let bienenernaehrungProQm=0;
+      let gesamtnahrungBienen = 0;
+      let co2Bindung = 0;
+      let positiverCo2Beitrag = 0;
+      for (let i=0; i< ergebnis.length ; i++) {
+        
+        bienenernaehrungProQm = parseInt(ergebnis[i].gesamtAnzahlBienenProQm ) + bienenernaehrungProQm
+        gesamtnahrungBienen = parseFloat(ergebnis[i].nahrungFürBienen) + gesamtnahrungBienen;
+        co2Bindung = parseFloat(ergebnis[i].co2Bindung,5) + co2Bindung;
+        positiverCo2Beitrag = parseFloat(co2InDerStadt) - (co2Bindung / 1000000000); // umrechnen in Millionen Tonnen 
+        
+      }
+        setGemensameDaten({'bienenernaehrungProQm':bienenernaehrungProQm,'gesamtnahrungBienen':gesamtnahrungBienen,'co2Bindung':co2Bindung,'positiverCo2Beitrag':positiverCo2Beitrag})
+        console.log(gemeinsameDaten);
+    }
+  };
+
+  
 
   return (
     <KeyboardAvoidingView
@@ -270,24 +313,52 @@ const BluehstreifenrechnerApp = () => {
           </View>
 
           <View style={styles.buttonContainer}>
-            <Pressable
-              onPress={() => {
-                setZeigeView(true);
-                handleSubmit();
-              }} //hadlesubmit
-              style={styles.berechnen}
-              testID="berechnenButton" // TestID für den 'Berechnen'-Buttond
-            
-            >
-              <ViewModal
-               testID = "berechnenButton"
-                visible={zeigeView}
-                onCancel={() => setZeigeView(false)}
-                // ergebnis = {ergebnis}
-                ergebnis={ergebnis !== null ? ergebnis : ""}
-              />
-              <Text style={styles.berechnenText}>Berechnen</Text>
-            </Pressable>
+
+                
+              <Pressable
+                  onPress={()=>{
+                    setIsFlag(false);
+                    handleSubmit()
+                  }}
+                  style={styles.speichern}            
+                >
+
+                <Text style={styles.berechnenText}>Speichern</Text>
+              </Pressable>
+
+              <Pressable
+                 onPress={() => {
+                  setZeigeView(true);
+                  ergeebnisseZusammenfassen(ergebnis);
+                  setIsFlag(true);
+                }} 
+                // onPress={() => {
+                //   setZeigeView(true);
+                //   handleSubmit();
+                // }} 
+                style={styles.berechnen}
+                testID="berechnenButton" // TestID für den 'Berechnen'-Buttond
+              
+              >
+                <ViewModal
+                testID = "berechnenButton"
+                  visible={zeigeView}
+                  onCancel={() => setZeigeView(false)}
+                  // ergebnis = {ergebnis}
+                  ergebnis={ergebnis !== null ? ergebnis : ""} 
+                  gemeinsameDaten={gemeinsameDaten !== null ? gemeinsameDaten : ""}
+                  // setErgebnisNull= {setErgebnisNull} // benötigt zum component MultipleViewMap
+                  // isFlag= {isFlag} // benötigt zum component MultipleViewMap
+                  // setIsFlag = {()=>setIsFlag()} // benötigt zum component MultipleViewMap
+                />
+                {/* <GemeinsamDaten
+                isFlag= {isFlag}
+                setIsFlag = {()=>setIsFlag()}
+                /> */}
+             
+                <Text style={styles.berechnenText}>Berechnen</Text>
+              </Pressable>
+         
             {/* <Text style={styles.ergebnisLabel} testID="ergebnisLabel">Ergebnis: {ergebnis ? ergebnis.benötigteMenge : ''}</Text> */}
 
             {/* <Button title="Berechnen" onPress={handleSubmit} 
