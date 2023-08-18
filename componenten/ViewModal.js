@@ -11,6 +11,8 @@ export default function ViewModal(props) {
     const visible =props.visible;
     const onCancel = props.onCancel;
     const gemeinsameDaten = props.gemeinsameDaten;
+    const setErgebnisNull = props.setErgebnisNull; 
+
     //  const [ergebnis, setErgebnis] = useState([props.ergebnis]);
      const ergebnis = props.ergebnis;
     
@@ -19,6 +21,12 @@ export default function ViewModal(props) {
     //     setErgebnis(props.ergebnis);
 
     // }, [props.ergebnis])
+
+    const resetObject = () => {
+      setErgebnisNull();
+      onCancel();
+console.log ('ergebnis from reset: ' + ergebnis.length)
+    }
 
     
 return (
@@ -35,6 +43,7 @@ onRequestClose={onCancel} // required on Android
  <View style={styles.modalContent}>
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
     <View testID={testID} style={styles.resultContainer}>
+
 
     {ergebnis.map((ergebnis, i) => (
       <View key={i}>
@@ -82,7 +91,9 @@ onRequestClose={onCancel} // required on Android
 
      ))}
 
-        <View style={styles.resultItem}>
+ 
+ {ergebnis!==null ? <><View style={styles.resultItem}>
+  {console.log('ergebnis :' + visible)}
                   <Text testID={`${testID}.saatMenge`} style={styles.resultLabel}>Bienenernährung pro Quadratmeter:</Text>
                   <Text testID={`${testID}.saatMengeValue`} style={styles.resultValue}>{gemeinsameDaten.bienenernaehrungProQm}</Text>
                 </View>
@@ -97,9 +108,26 @@ onRequestClose={onCancel} // required on Android
         <View style={styles.resultItem}>
                   <Text testID={`${testID}.saatMenge`} style={styles.resultLabel}>Positiver CO2-Beitrag in Millionen Tonnen:</Text>
                   <Text testID={`${testID}.saatMengeValue`} style={styles.resultValue}>{gemeinsameDaten.positiverCo2Beitrag}</Text>
+                </View></>:null}
+  
+  {/* {ergebnis!==null && ergebnis!==''? [ <View style={styles.resultItem}>
+                  <Text testID={`${testID}.saatMenge`} style={styles.resultLabel}>Bienenernährung pro Quadratmeter:</Text>
+                  <Text testID={`${testID}.saatMengeValue`} style={styles.resultValue}>{gemeinsameDaten.bienenernaehrungProQm}</Text>
                 </View>
+        <View style={styles.resultItem}>
+                  <Text testID={`${testID}.saatMenge`} style={styles.resultLabel}>Gesamtnahrung für Bienen während der Vegetationszeit:</Text>
+                  <Text testID={`${testID}.saatMengeValue`} style={styles.resultValue}>{gemeinsameDaten.gesamtnahrungBienen}</Text>
+                </View>
+        <View style={styles.resultItem}>
+                  <Text testID={`${testID}.saatMenge`} style={styles.resultLabel}>CO2-Bindung und -Reduktion:</Text>
+                  <Text testID={`${testID}.saatMengeValue`} style={styles.resultValue}>{gemeinsameDaten.co2Bindung}</Text>
+                </View>
+        <View style={styles.resultItem}>
+                  <Text testID={`${testID}.saatMenge`} style={styles.resultLabel}>Positiver CO2-Beitrag in Millionen Tonnen:</Text>
+                  <Text testID={`${testID}.saatMengeValue`} style={styles.resultValue}>{gemeinsameDaten.positiverCo2Beitrag}</Text>
+                </View>]:onCancel}
+        */}
 
-               
 
         {/* <View style={styles.resultItem}>
         <Text>{console.log("viewModel")}</Text>
@@ -136,7 +164,7 @@ onRequestClose={onCancel} // required on Android
           <Text testID={`${testID}.positiverBeitragValue`} style={styles.resultValue}>{ergebnis.positiverBeitrag}</Text>
         </View> */}
 
-      
+    
      </View>
  
     </ScrollView>
@@ -153,7 +181,7 @@ onRequestClose={onCancel} // required on Android
  
      <Pressable
               style= {styles.close}
-              onPress={onCancel}> 
+              onPress={resetObject}>
               <MaterialIcons name="close" size={Dimensions.get("window").width * 0.1} color="#228b22" />
       </Pressable> 
 </Modal> 

@@ -128,15 +128,17 @@ export default  styles = StyleSheet.create({
   speichern: {
     position: 'absolute', //absolute //relativ
     top: 0,
-    // flexDirection: 'row',
-    //  borderWidth : 1,
     padding: 10,
-    //  marginTop: 10,
     borderRadius: 10,
     borderColor: `#483d8b`, //darkslateblue
     backgroundColor: `#228b22`, //darkslateblue
   },
   berechnenText: {
+    color: '#FFF',
+    fontSize: Dimensions.get('window').width * 0.04,
+    textAlign: 'center',
+  },
+  speichernText: {
     color: '#FFF',
     fontSize: Dimensions.get('window').width * 0.04,
     textAlign: 'center',

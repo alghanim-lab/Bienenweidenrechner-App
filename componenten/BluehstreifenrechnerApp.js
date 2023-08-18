@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Alert, Text, TextInput, View, Pressable, ScrollView, KeyboardAvoidingView, Dimensions, StyleSheet, Animated } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import styles from './styles';
@@ -56,7 +56,7 @@ const setErgebnisNull = ()=> {
     loadPflanzenarten();
   }, []) // []---> einmalige Ausführeung 
 
- 
+  
 
   function checkAusgewaehlterPfalnzenart (ausgewähltePflanzenart) {
 
@@ -206,8 +206,38 @@ const setErgebnisNull = ()=> {
     }
   };
 
+  const fadeAnim = useRef(new Animated.Value(1)).current;
+  const fadeIn = () => {
+    Animated.timing(fadeAnim, {
+      toValue: 0.4,
+      duration: 100,
+      useNativeDriver: true,
+    }).start();
+  };
+  const fadeOut = () => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+  }
   
+  const AnimatedSpeichern = <Animated.View
+    style={[{
+    opacity: fadeAnim,
+    // position: 'absolute', //absolute //relativ
+    top: 0,
+    // padding: 10,
+    borderRadius: 10,
+    borderColor: `#483d8b`, //darkslateblue
+    backgroundColor: `#228b22`, //darkslateblue
 
+    }]}
+  >
+    <Text style={styles.speichernText}>Speichern</Text>
+
+  </Animated.View>
+  
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -315,15 +345,17 @@ const setErgebnisNull = ()=> {
           <View style={styles.buttonContainer}>
 
                 
-              <Pressable
+              <Pressable 
                   onPress={()=>{
                     setIsFlag(false);
                     handleSubmit()
                   }}
+                  onPressIn={fadeIn}
+                  onPressOut={fadeOut}
                   style={styles.speichern}            
                 >
+                {AnimatedSpeichern}
 
-                <Text style={styles.berechnenText}>Speichern</Text>
               </Pressable>
 
               <Pressable
@@ -347,6 +379,7 @@ const setErgebnisNull = ()=> {
                   // ergebnis = {ergebnis}
                   ergebnis={ergebnis !== null ? ergebnis : ""} 
                   gemeinsameDaten={gemeinsameDaten !== null ? gemeinsameDaten : ""}
+                  setErgebnisNull= {()=>setErgebnisNull()} 
                   // setErgebnisNull= {setErgebnisNull} // benötigt zum component MultipleViewMap
                   // isFlag= {isFlag} // benötigt zum component MultipleViewMap
                   // setIsFlag = {()=>setIsFlag()} // benötigt zum component MultipleViewMap
@@ -369,7 +402,6 @@ const setErgebnisNull = ()=> {
     </KeyboardAvoidingView>
   );
 };
-
 
 
 

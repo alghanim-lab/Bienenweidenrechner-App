@@ -1,7 +1,7 @@
 import { Modal,Text, Pressable, StyleSheet, TextInput, KeyboardAvoidingView, Platform, View, FlatList, SafeAreaView ,ScrollView,Dimensions} from "react-native"
 import { MaterialIcons } from '@expo/vector-icons';
 import React, { useState, useEffect } from 'react'
-import GemeinsamDaten from "./GemeinsamDaten";
+// import GemeinsamDaten from "./GemeinsamDaten";
 
 
 
