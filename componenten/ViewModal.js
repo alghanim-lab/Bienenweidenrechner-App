@@ -12,7 +12,7 @@ export default function ViewModal(props) {
     const onCancel = props.onCancel;
     const gemeinsameDaten = props.gemeinsameDaten;
     const setErgebnisNull = props.setErgebnisNull; 
-
+    const setGemeinsamsameDatenNull= props.setGemeinsamsameDatenNull;
     //  const [ergebnis, setErgebnis] = useState([props.ergebnis]);
      const ergebnis = props.ergebnis;
     
@@ -24,13 +24,14 @@ export default function ViewModal(props) {
 
     const resetObject = () => {
       setErgebnisNull();
+      setGemeinsamsameDatenNull();
       onCancel();
 console.log ('ergebnis from reset: ' + ergebnis.length)
     }
 
     
 return (
-
+ergebnis.length>0  ? 
 <Modal
 visible={visible}
 animationType='slide'
@@ -92,7 +93,7 @@ onRequestClose={onCancel} // required on Android
      ))}
 
  
- {ergebnis!==null ? <><View style={styles.resultItem}>
+ <View style={styles.resultItem}>
   {console.log('ergebnis :' + visible)}
                   <Text testID={`${testID}.saatMenge`} style={styles.resultLabel}>Bienenernährung pro Quadratmeter:</Text>
                   <Text testID={`${testID}.saatMengeValue`} style={styles.resultValue}>{gemeinsameDaten.bienenernaehrungProQm}</Text>
@@ -108,7 +109,7 @@ onRequestClose={onCancel} // required on Android
         <View style={styles.resultItem}>
                   <Text testID={`${testID}.saatMenge`} style={styles.resultLabel}>Positiver CO2-Beitrag in Millionen Tonnen:</Text>
                   <Text testID={`${testID}.saatMengeValue`} style={styles.resultValue}>{gemeinsameDaten.positiverCo2Beitrag}</Text>
-                </View></>:null}
+                </View>
   
   {/* {ergebnis!==null && ergebnis!==''? [ <View style={styles.resultItem}>
                   <Text testID={`${testID}.saatMenge`} style={styles.resultLabel}>Bienenernährung pro Quadratmeter:</Text>
@@ -184,9 +185,9 @@ onRequestClose={onCancel} // required on Android
               onPress={resetObject}>
               <MaterialIcons name="close" size={Dimensions.get("window").width * 0.1} color="#228b22" />
       </Pressable> 
-</Modal> 
+</Modal> : null)
 
-)};
+};
 
 
 

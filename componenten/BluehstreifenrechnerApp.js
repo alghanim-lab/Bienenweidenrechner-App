@@ -51,6 +51,10 @@ const setErgebnisNull = ()=> {
   setErgebnis([])  // setze die Ergebnise Liste auf Null , wenn der User in Laufzeit der App erneut eine neue Liste aussuchen möchte
 }
 
+const setGemeinsamsameDatenNull = () => {
+  setGemensameDaten({})
+}
+
   // Pflanzenarten beim Start der App Laden
   useEffect(() => {
     loadPflanzenarten();
@@ -359,11 +363,11 @@ const setErgebnisNull = ()=> {
               </Pressable>
 
               <Pressable
-                 onPress={() => {
+                 onPress={ergebnis.length>0? () => {
                   setZeigeView(true);
                   ergeebnisseZusammenfassen(ergebnis);
                   setIsFlag(true);
-                }} 
+                }: null} 
                 // onPress={() => {
                 //   setZeigeView(true);
                 //   handleSubmit();
@@ -380,6 +384,7 @@ const setErgebnisNull = ()=> {
                   ergebnis={ergebnis !== null ? ergebnis : ""} 
                   gemeinsameDaten={gemeinsameDaten !== null ? gemeinsameDaten : ""}
                   setErgebnisNull= {()=>setErgebnisNull()} 
+                  setGemeinsamsameDatenNull={ ()=>setGemeinsamsameDatenNull()}
                   // setErgebnisNull= {setErgebnisNull} // benötigt zum component MultipleViewMap
                   // isFlag= {isFlag} // benötigt zum component MultipleViewMap
                   // setIsFlag = {()=>setIsFlag()} // benötigt zum component MultipleViewMap
