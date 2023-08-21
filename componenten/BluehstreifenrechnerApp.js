@@ -211,6 +211,8 @@ const setGemeinsamsameDatenNull = () => {
   };
 
   const fadeAnim = useRef(new Animated.Value(1)).current;
+  const fadeAnimB = useRef(new Animated.Value(1)).current;
+
   const fadeIn = () => {
     Animated.timing(fadeAnim, {
       toValue: 0.4,
@@ -225,8 +227,23 @@ const setGemeinsamsameDatenNull = () => {
       useNativeDriver: true,
     }).start();
   }
+
+  const fadeInB = () => {
+    Animated.timing(fadeAnimB, {
+      toValue: 0.4,
+      duration: 100,
+      useNativeDriver: true,
+    }).start();
+  };
+  const fadeOutB = () => {
+    Animated.timing(fadeAnimB, {
+      toValue: 1,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+  }
   
-  const AnimatedSpeichern = <Animated.View
+  const AnimatedSpeichern = (<Animated.View
     style={[{
     opacity: fadeAnim,
     // position: 'absolute', //absolute //relativ
@@ -241,7 +258,31 @@ const setGemeinsamsameDatenNull = () => {
     <Text style={styles.speichernText}>Speichern</Text>
 
   </Animated.View>
+  )
+
+  const AnimatedBerechnen = (<Animated.View
+    style={[{
+    opacity: fadeAnimB,
+    // position: 'absolute', //absolute //relativ
+    top: 0,
+    // padding: 10,
+    borderRadius: 10,
+    borderColor: `#483d8b`, //darkslateblue
+    backgroundColor: `#228b22`, //darkslateblue
+
+    }]}
+  >
+    <Text style={styles.speichernText}>Berechnen</Text>
+
+  </Animated.View>
+  )
   
+  const onPressBerechnen = ergebnis.length > 0 ? () => {
+    setZeigeView(true);
+    ergeebnisseZusammenfassen(ergebnis);
+    setIsFlag(true);
+  } : null;
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -252,7 +293,7 @@ const setGemeinsamsameDatenNull = () => {
         keyboardShouldPersistTaps="handled"
       >
         <View style={styles.form}>
-          <View style={[styles.field, { flexDirection: "row", flex: 0.2 }]}>
+          <View style={[styles.fieldHeader, { flexDirection: "row", flex: 0.2 }]}>
             <View>
               <Pressable
                 testID='neuePlanzenart'
@@ -363,11 +404,9 @@ const setGemeinsamsameDatenNull = () => {
               </Pressable>
 
               <Pressable
-                 onPress={ergebnis.length>0? () => {
-                  setZeigeView(true);
-                  ergeebnisseZusammenfassen(ergebnis);
-                  setIsFlag(true);
-                }: null} 
+                 onPress={onPressBerechnen }
+                 onPressIn={fadeInB}
+                  onPressOut={fadeOutB}
                 // onPress={() => {
                 //   setZeigeView(true);
                 //   handleSubmit();
@@ -393,8 +432,8 @@ const setGemeinsamsameDatenNull = () => {
                 isFlag= {isFlag}
                 setIsFlag = {()=>setIsFlag()}
                 /> */}
-             
-                <Text style={styles.berechnenText}>Berechnen</Text>
+                {AnimatedBerechnen}
+                {/* <Text style={styles.berechnenText}>Berechnen</Text> */}
               </Pressable>
          
             {/* <Text style={styles.ergebnisLabel} testID="ergebnisLabel">Ergebnis: {ergebnis ? ergebnis.benötigteMenge : ''}</Text> */}

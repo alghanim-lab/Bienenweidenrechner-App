@@ -4,6 +4,9 @@ export default  styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    // backgroundColor:'lightgreen',
+    borderRadius:30
+
   },
   contentContainer: {
     flex: 1,
@@ -19,12 +22,21 @@ export default  styles = StyleSheet.create({
     paddingHorizontal: 10, // +
 
   },
-
+  fieldHeader : {
+    flex: 1,
+    marginBottom: 15,
+    backgroundColor:'ghostwhite',
+    borderWidth: 0.5,
+    borderColor:'green',
+    borderRadius: 10,
+  },
   field: {
     flex: 1,
     marginBottom: 15,
-    borderWidth: 1,
-
+    borderWidth: 0.5,
+    borderColor:'green',
+    backgroundColor:'ghostwhite',
+    borderRadius: 10,
   },
   addIcon: {
     position: 'absolute', //absolute //relativ
@@ -54,13 +66,15 @@ export default  styles = StyleSheet.create({
   },
 
   label: {
-    fontSize: Dimensions.get('window').width * 0.04,
+    fontSize: Dimensions.get('window').width * 0.05,
     fontWeight: 'bold',
-    // borderWidth : 3,
+    //  borderWidth : 3,
+     color:'green',
+     marginLeft:3,
 
   },
   input: {
-    borderWidth: 1,
+    borderWidth: 0.5,
     borderColor: '#ccc',
     borderRadius: 5,
     paddingHorizontal: 10,
@@ -68,10 +82,10 @@ export default  styles = StyleSheet.create({
     fontSize: Dimensions.get('window').width * 0.04,
   },
   picker: {
-    borderWidth: 1,
+    // borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
-    fontSize: 16,
+    // fontSize: 20,
     // transform: Dimensions.get('window').width > "700"
     // ? [{ scaleX: 2 }, { scaleY: 2 }], top:150
     // : [{ scaleX: 1.1 }, { scaleY: 1.1 }]
@@ -89,24 +103,7 @@ export default  styles = StyleSheet.create({
     marginBottom: 20, // +
 
   },
-  resultTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    height: 40,
-    // borderWidth : 3,
-  },
 
-  resultLabel: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    borderWidth: 0.5,
-  },
-  // resultValue: {
-  //   fontSize: Dimensions.get('window').width * 0.04,
-  //   // borderWidth : 0.5,
-
-  // },
   buttonContainer: {
     flex:.2,
     marginTop: 10,
@@ -116,7 +113,7 @@ export default  styles = StyleSheet.create({
   berechnen: {
     position: 'absolute', //absolute //relativ
     top:0,
-    right :20,
+    right :0,
     // flexDirection: 'row',
     //  borderWidth : 1,
     padding: 10,
@@ -137,11 +134,14 @@ export default  styles = StyleSheet.create({
     color: '#FFF',
     fontSize: Dimensions.get('window').width * 0.04,
     textAlign: 'center',
+    // fontWeight:'bold'
   },
   speichernText: {
     color: '#FFF',
     fontSize: Dimensions.get('window').width * 0.04,
     textAlign: 'center',
+    fontWeight:'bold'
+
   }
 
 });
