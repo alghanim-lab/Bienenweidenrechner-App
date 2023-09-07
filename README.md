@@ -4,3 +4,5 @@
 2. Ins Projektverzeichnis wechseln: cd Bienenweidenrechner-App
 3. npm-Packages für das Projekt installieren: npm install
 4. React Native Packager starten mit expo start
+
+![alt text](https://github.com/alghanim-lab/Bienenweidenrechner-App/blob/main/img/front.png)
