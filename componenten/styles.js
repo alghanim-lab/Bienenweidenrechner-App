@@ -122,6 +122,12 @@ export default  styles = StyleSheet.create({
     borderColor: `#483d8b`, //darkslateblue
     backgroundColor: `#228b22`, //darkslateblue
   },
+  extraBerchnen: {
+    position: 'absolute', //absolute //relativ
+    top:0,
+    right :0,
+    padding: 10,
+  },
   speichern: {
     position: 'absolute', //absolute //relativ
     top: 0,
@@ -130,13 +136,18 @@ export default  styles = StyleSheet.create({
     borderColor: `#483d8b`, //darkslateblue
     backgroundColor: `#228b22`, //darkslateblue
   },
+  extraSpeichern: {
+    position: 'absolute', //absolute //relativ
+        top: 0,
+        padding: 10,
+  },
   berechnenText: {
     color: '#FFF',
     fontSize: Dimensions.get('window').width * 0.04,
     textAlign: 'center',
     // fontWeight:'bold'
   },
-  speichernText: {
+  ButtonText: {
     color: '#FFF',
     fontSize: Dimensions.get('window').width * 0.04,
     textAlign: 'center',

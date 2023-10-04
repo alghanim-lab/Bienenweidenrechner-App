@@ -1,11 +1,20 @@
 import { useState } from "react";
-import { Modal,Text, Pressable, StyleSheet, TextInput, KeyboardAvoidingView, Platform ,Dimensions} from "react-native"
-import { MaterialIcons } from '@expo/vector-icons';
+import { Modal,Text, StyleSheet, TextInput, KeyboardAvoidingView, Platform ,Dimensions} from "react-native"
+import NeuePflanzenartenHinzufuegen from "./NeuePflanzenartenHinzufuegen";
+import { useStateContext, useDispatchContext } from "./StateProvider";
+import IconButton from "./IconButton";
+import BigButton from "./BigButton";
+
 export default function NeuePflanzenart (props) {
     const visible =props.visible;
     const onCancel=props.onCancel;
-    const onSave = props.onSave;
     const testID= props.testID
+   
+    const state = useStateContext();
+    const dispatch = useDispatchContext();
+
+
+
 
     const [pflanzenartName,setPflanzenartName] = useState('')
     const [saatMenge, setSaatMenge] = useState('')
@@ -15,18 +24,21 @@ export default function NeuePflanzenart (props) {
     
 
     function savePflanzenart () {
+      
+
         const neuePflanzenartName = pflanzenartName.trim();
         const neueSaatMenge = saatMenge.trim ();
         const neueSaatZeitpunkt = saatZeitpunkt.trim ();
         const neueBluetzeit = bluetzeit.trim ();
         const neueVegetationszeit = vegetationszeit.trim ();
+        
 
         if (neuePflanzenartName.length === 0 || neueSaatMenge.length === 0 || neueSaatZeitpunkt.length === 0 || 
             neueBluetzeit === 0 || neueVegetationszeit === 0) {
                 alert ('Alle Felder dürfen nicht leer seine !');
                 return;
             }
-            onSave (neuePflanzenartName, neueSaatMenge, neueSaatZeitpunkt, neueBluetzeit, neueVegetationszeit)
+            NeuePflanzenartenHinzufuegen(neuePflanzenartName, neueSaatMenge, neueSaatZeitpunkt, neueBluetzeit, neueVegetationszeit,state,dispatch)
             setPflanzenartName('');
             setSaatMenge('');
             setSaatZeitpunkt('');
@@ -57,6 +69,7 @@ onRequestClose={cancelEditing}
 animationType='slide'>
 
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style = {styles.container}>
+
         <TextInput testID={`${testID}.pflanzenartname`} placeholder="Planzenartname"
         onChangeText={(value) => setPflanzenartName(value)} //{setPlanzenartName} ist ausreichend da es sich um einen Text handelt 
          style={styles.input}
@@ -81,21 +94,23 @@ animationType='slide'>
         style={styles.input}
         required/>
 
-
-        <Pressable
-            style= {styles.back}
-            onPress={cancelEditing}> 
-            <MaterialIcons name="keyboard-backspace" size={Dimensions.get("window").width * 0.1} color="#228b22" />
-        </Pressable>
-
-        <Pressable 
+        <IconButton
+        onPress={cancelEditing}
+        icon="keyboard-backspace"
+        style= {styles.back}
+        />
+        
+        <BigButton
         onPress={savePflanzenart} 
-        style = {styles.speichern}>
-            <Text style = {styles.speichernText}> Speichern</Text>
-        </Pressable>
+        style = {styles.speichern}
+        textStyle = {styles.speichernText}
+        >
+        <Text style = {styles.speichernText}> Speichern</Text>
+        </BigButton>
 
     </KeyboardAvoidingView>
 </Modal>
+
         );
 }
 
@@ -144,11 +159,7 @@ const styles = StyleSheet.create ({
          ?  Dimensions.get('window').width *0.05
          :  Dimensions.get('window').width * 0.1 , 
          left: 30,
-        //  borderWidth : 1,
          padding : 10,
-        //  marginTop: 10,
          borderRadius: 10,
-        // borderColor: `#483d8b`, //darkslateblue
-         //backgroundColor: `#483d8b`, //darkslateblue
       }
 })

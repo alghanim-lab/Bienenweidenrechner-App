@@ -1,22 +1,31 @@
 //1.) impot- Anweisungen
 import React from 'react';
-import { useState } from 'react';
-import { StyleSheet, View,Text } from 'react-native';
-import BluehstreifenrechnerApp from './componenten/BluehstreifenrechnerApp';
+import { View } from 'react-native';
+import BluehstreifenrechnerApp from "./componenten/BluehstreifenrechnerApp";
+import { StateProvider } from './componenten/StateProvider';
+import NeuePflanzenartenHinzufuegen from './componenten/NeuePflanzenartenHinzufuegen';
+import NeuePflanzenart from './componenten/NeuePflanzenart';
+import ViewModal from './componenten/ViewModal';
+
 
 
 //2) usere UI-Komponente deklariren
 export default function App() {
 
-  // const useStateArray = useState(0)
-  // console.log('useStatieArray-->', useStateArray)
-  
+
 
   return (
+
     //JSX javascript und xml
     <View style={styles.container}>
-      {/* <Text style = {style1}>Hallo</Text> */}
-    <BluehstreifenrechnerApp/> 
+      <StateProvider>
+      <BluehstreifenrechnerApp>
+        <NeuePflanzenart>
+          <NeuePflanzenartenHinzufuegen/>
+        </NeuePflanzenart>
+        <ViewModal/>
+      </BluehstreifenrechnerApp>
+      </StateProvider>
     </View>
   );
 }
